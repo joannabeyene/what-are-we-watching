@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 
 const api = {
-    key: '9d225f682bf19927ae33f065b2ee92bc',
+    key: `${process.env.REACT_APP_MOVIE_KEY}`,
     base: 'https://api.themoviedb.org/3/movie/popular?'
 }
-
 const Movies = () => {
     const [movies, setMovies] = useState([]);
 

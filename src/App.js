@@ -1,10 +1,9 @@
-import Movies from "./components/Movies";
+import Randomiser from "./components/Randomiser";
 
 function App() {
   return (
     <div className="App">
-      <div>Hej från App!</div>
-      <Movies/>
+      <Randomiser/>
     </div>
   );
 }

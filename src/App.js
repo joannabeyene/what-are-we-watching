@@ -1,9 +1,10 @@
-import Randomiser from "./components/Randomiser";
+import Main from "./components/Main";
+
 
 function App() {
   return (
     <div className="App">
-      <Randomiser/>
+      <Main/>
     </div>
   );
 }

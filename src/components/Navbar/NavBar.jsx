@@ -1,13 +1,17 @@
 import { useNavigate } from 'react-router-dom';
-import Randomiser from '../Randomiser/Randomiser';
 
 const NavBar =()=> {
     const navigate = useNavigate();
+    localStorage.clear();
     return (
-        <div onClick={() => navigate('/Randomiser')}>
-            Randomiser
-        </div>
-
+        <>
+        <button onClick={() => navigate('/Customised')}>
+            Customised
+        </button>
+        <button onClick={() => navigate('/Random')}>
+            Pick one for me
+        </button>
+    </>
     )
 }
 export default NavBar;

@@ -5,7 +5,6 @@ const api = {
     key: `${process.env.REACT_APP_MOVIE_KEY}`,
     base: 'https://api.themoviedb.org/3/'
 }
-
 const Customised =()=> {
     const navigate = useNavigate();
     const [genres, setGenres] = useState([]);
@@ -17,6 +16,7 @@ const Customised =()=> {
 
     const Randomise = () => {
         localStorage.clear();
+        
         fetch(`${api.base}discover/movie?api_key=${api.key}&with_original_language=${languageId}&with_genres=${genreId}`)
         .then(res => res.json())
         .then(data => {
@@ -31,6 +31,10 @@ const Customised =()=> {
     const TryAgain = () => {
         localStorage.clear();
         let randomPage = Math.floor(Math.random() * 500) + 1;
+
+        console.log(randomPage);
+        console.log(page);
+
         if(randomPage < page) {
             fetch(`${api.base}discover/movie?api_key=${api.key}&page=${randomPage}&with_original_language=${languageId}&with_genres=${genreId}`)
             .then(res => res.json())
@@ -59,6 +63,7 @@ const Customised =()=> {
     const clearLS = () => {
         localStorage.clear();
         setMovies([])
+        setPage([])
     }
 
 
@@ -73,7 +78,8 @@ const Customised =()=> {
     const fetchLanguages = () => {
         fetch(`${api.base}configuration/languages?api_key=${api.key}`)
         .then(res => res.json())
-        .then(data => setLanguages(data))
+        .then(data => setLanguages(data)
+        )
         .catch(err => {
             console.log('Error Reading data: ' + err);
         });
@@ -82,15 +88,20 @@ const Customised =()=> {
     useEffect (() => {
         fetchGenres()
         fetchLanguages()
-        const data = localStorage.getItem("randomised");
-        if(data) {
-          setMovies(JSON.parse(data))
+        const movieData = localStorage.getItem("randomised");
+        if(movieData) {
+          setMovies(JSON.parse(movieData))
+        }
+        const totalPages = localStorage.getItem("totalPages");
+        if(totalPages) {
+          setPage(JSON.parse(totalPages))
         }
     },[])
 
     useEffect (() => {
         localStorage.setItem("randomised", JSON.stringify(movies));
-    },[movies])
+        localStorage.setItem("totalPages", JSON.stringify(page));
+    },[movies, page])
 
     return (
         <ComponentWrapper>
@@ -99,7 +110,7 @@ const Customised =()=> {
                 <div className="wrapper">
                 <label>{"Genre (optional):"}</label>
                     {genres && <select id={genreId} onChange={(e) => setGenreId(e.target.value)}>
-                        <option>choose a genre...</option>
+                        <option value=''>choose a genre...</option>
                         {genres.map((genre)=> {
                             return <option id={genre.id} value={genre.id} key={genre.id}>{genre.name}</option>
                         })}
@@ -109,7 +120,7 @@ const Customised =()=> {
                 <div className="wrapper">
                     <label>{"Language (optional):"}</label>
                     {languages && <select id={languageId} onChange={(e) => setLanguageId(e.target.value)}>
-                        <option>choose a language...</option>
+                        <option value=''>choose a language...</option>
                         {languages.map((language)=> {
                             return <option id={language.iso_639_1} value={language.iso_639_1} key={language.iso_639_1}>{language.english_name}</option>
                         })}
@@ -122,7 +133,7 @@ const Customised =()=> {
             {movies && <div>
                     {movies.map((movie)=> {
                         return <div id={movie.id} onClick={() => navigate(`/Movie/${movie.id}`)} key={movie.id}>
-                            <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}></img>
+                            <img src={movie.poster_path && `https://image.tmdb.org/t/p/w300/${movie.poster_path}`}></img>
                             <div>{movie.original_title}</div>
                         </div>
                     })}

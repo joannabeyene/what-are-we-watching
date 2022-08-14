@@ -9,11 +9,11 @@ const api = {
 const Movie = () => {
     const {uuid} = useParams();
     const [movies, setMovies] = useState([]);
-    // const [trailer, setTrailer] = useState([]);
+    const [trailer, setTrailer] = useState([]);
 
 
     const fetchMovie = () => {
-        fetch(`${api.base}movie/${uuid}?api_key=${api.key}&append_to_response=videos`)
+        fetch(`${api.base}movie/${uuid}?api_key=${api.key}`)
         .then(res => res.json())
         .then(data => {
             setMovies(data)
@@ -24,26 +24,31 @@ const Movie = () => {
         });
     }
     const fetchTrailer = () => {
-        const trailer = movies.videos.results.find(vid => vid.name == "Official Trailer")
-        return (
-            <YouTube
-            videoId={trailer.key}/>
-        )
+        fetch(`${api.base}movie/${uuid}?api_key=${api.key}&append_to_response=videos`)
+        .then(res => res.json())
+        .then(data => {
+            setTrailer(data.videos.results.find(vid => vid.name == "Official Trailer"))
+            console.log(data)
+        })
+        .catch(err => {
+            console.log('Error Reading Movie data: ' + err);
+        });
     }
 
     useEffect ( () => {
-        // fetchTrailer()
+        fetchTrailer()
         fetchMovie()
     },[])
 
     return (<>
-                <div id={movies.id} key={movies.id}>
-                    <img src={`https://image.tmdb.org/t/p/w300/${movies.poster_path}`}></img>
-                    <div>{movies.original_title}</div>
-                    <div>{movies.overview}</div>
-                </div>
+            <div id={movies.id} key={movies.id}>
+                <img src={movies.poster_path && `https://image.tmdb.org/t/p/w300/${movies.poster_path}`}></img>
+                <div>{movies.original_title}</div>
+                <div>{movies.overview}</div>
+            </div>
 
-                {movies.videos && fetchTrailer()}
+            {trailer &&  <YouTube
+            videoId={trailer.key}/>}
                     
 
     </>)

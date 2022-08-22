@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 import { useNavigate } from 'react-router-dom';
-import ComponentWrapper from "./RandomiserStyling";
+import Style from "./CustomisedStyling";
 const api = {
     key: `${process.env.REACT_APP_MOVIE_KEY}`,
     base: 'https://api.themoviedb.org/3/'
@@ -16,12 +16,12 @@ const Customised =()=> {
 
     const Randomise = () => {
         localStorage.clear();
-        
         fetch(`${api.base}discover/movie?api_key=${api.key}&with_original_language=${languageId}&with_genres=${genreId}`)
         .then(res => res.json())
         .then(data => {
             setMovies(data.results)
             setPage(data.total_pages)
+            console.log(data.results);
         })
         .catch(err => {
             console.log('Error Reading data: ' + err);
@@ -31,16 +31,11 @@ const Customised =()=> {
     const TryAgain = () => {
         localStorage.clear();
         let randomPage = Math.floor(Math.random() * 500) + 1;
-
-        console.log(randomPage);
-        console.log(page);
-
         if(randomPage < page) {
             fetch(`${api.base}discover/movie?api_key=${api.key}&page=${randomPage}&with_original_language=${languageId}&with_genres=${genreId}`)
             .then(res => res.json())
             .then(data => {
                 setMovies(data.results)
-                console.log('All movies: ', data);
             })
             .catch(err => {
                 console.log('Error Reading data: ' + err);
@@ -51,7 +46,6 @@ const Customised =()=> {
             .then(res => res.json())
             .then(data => {
                 setMovies(data.results)
-                console.log('All movies: ', data);
             })
             .catch(err => {
                 console.log('Error Reading data: ' + err);
@@ -59,13 +53,6 @@ const Customised =()=> {
         }
         
     }
-
-    const clearLS = () => {
-        localStorage.clear();
-        setMovies([])
-        setPage([])
-    }
-
 
     const fetchGenres = () => {
         fetch(`${api.base}genre/movie/list?api_key=${api.key}`)
@@ -103,11 +90,12 @@ const Customised =()=> {
         localStorage.setItem("totalPages", JSON.stringify(page));
     },[movies, page])
 
-    return (
-        <ComponentWrapper>
-        <div>Randomiser Component: </div>
-            <div className="Randomiser-form">
-                <div className="wrapper">
+    return (<>
+        <Style>
+            <button onClick={() => navigate(-1)}>Back</button>
+            <div>Randomiser Component: </div>
+            <div className="form">
+                <div className="genre">
                 <label>{"Genre (optional):"}</label>
                     {genres && <select id={genreId} onChange={(e) => setGenreId(e.target.value)}>
                         <option value=''>choose a genre...</option>
@@ -117,7 +105,7 @@ const Customised =()=> {
                     </select>}
                 </div>
 
-                <div className="wrapper">
+                <div className="language">
                     <label>{"Language (optional):"}</label>
                     {languages && <select id={languageId} onChange={(e) => setLanguageId(e.target.value)}>
                         <option value=''>choose a language...</option>
@@ -128,17 +116,19 @@ const Customised =()=> {
                 </div>
                 <button onClick={Randomise}>Generate</button>
             </div>
-            <button onClick={clearLS}>Clear List</button>
-            <button onClick={TryAgain}>Roll again</button>
-            {movies && <div>
-                    {movies.map((movie)=> {
-                        return <div id={movie.id} onClick={() => navigate(`/Movie/${movie.id}`)} key={movie.id}>
-                            <img src={movie.poster_path && `https://image.tmdb.org/t/p/w300/${movie.poster_path}`}></img>
-                            <div>{movie.original_title}</div>
+            {movies && <div className="movies">
+                {movies.map((movie)=> {
+                    return <div className="card" id={movie.id} onClick={() => navigate(`/Movie/${movie.id}`)} key={movie.id}>
+                        <div className="image"><div className="wrapper"><img src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'https://via.placeholder.com/250/CCCCCC/000000?text=No+Image'}></img></div></div>
+                        <div className="content">
+                            <h2>{movie.title}</h2>
+                            <p>&#9733;{movie.vote_average}</p>
                         </div>
-                    })}
-                </div>}
-        </ComponentWrapper>
-    )
+                    </div>
+                })}
+                {page > 1 && <button onClick={TryAgain}>Roll again</button>}
+            </div>}
+        </Style>
+    </>)
 }
 export default Customised;

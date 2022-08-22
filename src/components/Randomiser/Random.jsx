@@ -11,6 +11,7 @@ const Random = () => {
     const [movies, setMovies] = useState([]);
 
     const fetchMovie = () => {
+        localStorage.clear();
         let randomPage = Math.floor(Math.random() * 500) + 1;
         let randomMovie = Math.floor(Math.random() * 19);
         fetch(`${api.base}discover/movie?api_key=${api.key}&page=${randomPage}`)
@@ -25,16 +26,23 @@ const Random = () => {
     }
 
     useEffect ( () => {
-        fetchMovie()
+        const movieData = localStorage.getItem("randomised");
+        if(movieData) {
+          setMovies(JSON.parse(movieData))
+        }
     },[])
 
-    return (<>
-    <button onClick={fetchMovie}>Roll again</button>
-        <div id={movies.id} onClick={() => navigate(`/Movie/${movies.id}`)} key={movies.id}>
-                <img src={movies.poster_path && `https://image.tmdb.org/t/p/w300/${movies.poster_path}`}></img>
-                <div>{movies.original_title}</div>
-        </div>
+    useEffect (() => {
+        localStorage.setItem("randomised", JSON.stringify(movies));
+    },[movies])
 
+    return (<>
+        <button onClick={() => navigate(-1)}>Back</button>
+        <button onClick={fetchMovie}>Roll</button>
+        <div id={movies.id} onClick={() => navigate(`/Movie/${movies.id}`)} key={movies.id}>
+            <img src={movies.poster_path && `https://image.tmdb.org/t/p/w300/${movies.poster_path}`}></img>
+            <div>{movies.original_title}</div>
+        </div>
     </>)
 
 }

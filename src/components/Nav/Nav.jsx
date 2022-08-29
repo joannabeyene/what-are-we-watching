@@ -1,11 +1,11 @@
 import {useState} from 'react'
 import { NavLink } from 'react-router-dom';
-import Style from './NavBarStyling';
+import Style from './NavStyling';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useMediaQuery } from 'react-responsive'
 import { CgCloseO } from 'react-icons/cg'
 
-const NavBar = () => {
+const Nav = () => {
     localStorage.clear();
 
     const isMobile = useMediaQuery({ query: '(max-width: 480px)' })
@@ -35,4 +35,4 @@ const NavBar = () => {
     </> )
 }
 
-export default NavBar
+export default Nav

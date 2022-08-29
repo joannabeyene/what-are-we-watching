@@ -1,6 +1,8 @@
 import {useState, useEffect} from "react"
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive'
 import Style from "./CustomisedStyling";
+import {BiCameraMovie} from 'react-icons/bi'
 const api = {
     key: `${process.env.REACT_APP_MOVIE_KEY}`,
     base: 'https://api.themoviedb.org/3/'
@@ -13,6 +15,7 @@ const Customised =()=> {
     const [languageId, setLanguageId] = useState([]);
     const [movies, setMovies] = useState([]);
     const [page, setPage] = useState([]);
+    const isMobile = useMediaQuery({ query: '(max-width: 480px)' })
 
     const Randomise = () => {
         localStorage.clear();
@@ -92,42 +95,67 @@ const Customised =()=> {
 
     return (<>
         <Style>
-            <button onClick={() => navigate(-1)}>Back</button>
-            <div>Randomiser Component: </div>
+            <div className="welcome">
+                <BiCameraMovie size={65} />
+                <h1 style={{color: '#F0803C'}}>What Are We Watching</h1>
+                <h2>Get Movies chosen for you, <span className="underline">customised</span> or <span className="underline">random</span>!</h2>
+            </div>
             <div className="form">
-                <div className="genre">
-                <label>{"Genre (optional):"}</label>
-                    {genres && <select id={genreId} onChange={(e) => setGenreId(e.target.value)}>
-                        <option value=''>choose a genre...</option>
-                        {genres.map((genre)=> {
-                            return <option id={genre.id} value={genre.id} key={genre.id}>{genre.name}</option>
-                        })}
-                    </select>}
-                </div>
+                <h2>Customise and Add some Filters of Your Choice!</h2>
+                <div className="content">
+                    <div className="genre">
+                    <label>{"Genre (optional):"}</label>
+                        {genres && <select id={genreId} onChange={(e) => setGenreId(e.target.value)}>
+                            <option value=''>choose a genre...</option>
+                            {genres.map((genre)=> {
+                                return <option id={genre.id} value={genre.id} key={genre.id}>{genre.name}</option>
+                            })}
+                        </select>}
+                    </div>
 
-                <div className="language">
-                    <label>{"Language (optional):"}</label>
-                    {languages && <select id={languageId} onChange={(e) => setLanguageId(e.target.value)}>
-                        <option value=''>choose a language...</option>
-                        {languages.map((language)=> {
-                            return <option id={language.iso_639_1} value={language.iso_639_1} key={language.iso_639_1}>{language.english_name}</option>
-                        })}
-                    </select>}
-                </div>
+                    <div className="language">
+                        <label>{"Language (optional):"}</label>
+                        {languages && <select id={languageId} onChange={(e) => setLanguageId(e.target.value)}>
+                            <option value=''>choose a language...</option>
+                            {languages.map((language)=> {
+                                return <option id={language.iso_639_1} value={language.iso_639_1} key={language.iso_639_1}>{language.english_name}</option>
+                            })}
+                        </select>}
+                    </div>
+                </div>                           
                 <button onClick={Randomise}>Generate</button>
             </div>
-            {movies && <div className="movies">
-                {movies.map((movie)=> {
-                    return <div className="card" id={movie.id} onClick={() => navigate(`/Movie/${movie.id}`)} key={movie.id}>
-                        <div className="image"><div className="wrapper"><img src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'https://via.placeholder.com/250/CCCCCC/000000?text=No+Image'}></img></div></div>
-                        <div className="content">
-                            <h2>{movie.title}</h2>
-                            <p>&#9733;{movie.vote_average}</p>
-                        </div>
-                    </div>
-                })}
+            {!isMobile &&<div className="movies-wrapper">
                 {page > 1 && <button onClick={TryAgain}>Roll again</button>}
+                {movies && <div className="movies">
+                    {movies.map((movie)=> (
+                        <div className="card" id={movie.id} onClick={() => navigate(`/Movie/${movie.id}`)} key={movie.id}>
+                            <div className="image"><div className="wrapper"><img src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'/images/placeholder.png'}></img></div></div>
+                            <div className="content">
+                                <h2>{movie.title} {`(${movie.release_date?.substring(0, 4)})`}</h2>
+                                <p>&#9733;{Math.round(movie.vote_average * 10) / 10}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>}
             </div>}
+            {isMobile &&<div className="movies-wrapper">
+                {page > 1 && <button onClick={TryAgain}>Roll again</button>}
+                {movies && <div className="carousel-wrapper">
+                    <div className="carousel">
+                    {movies.map((movie)=> (
+                        <div className="carousel-item card" id={movie.id} onClick={() => navigate(`/Movie/${movie.id}`)} key={movie.id}>
+                            <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'url/images/placeholder.png'}></img>
+                            <div className="content">
+                                <h2>{movie.title} {`(${movie.release_date?.substring(0, 4)})`}</h2>
+                                <p>&#9733;{Math.round(movie.vote_average * 10) / 10}</p>
+                            </div>
+                        </div>
+                    ))}
+                    </div>
+                </div>}
+            </div>
+            }
         </Style>
     </>)
 }

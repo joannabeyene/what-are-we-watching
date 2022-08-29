@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react"
 import { useNavigate } from 'react-router-dom';
+import Style from "./RandomStyling";
 
 const api = {
     key: `${process.env.REACT_APP_MOVIE_KEY}`,
@@ -8,7 +9,7 @@ const api = {
 
 const Random = () => {
     const navigate = useNavigate();
-    const [movies, setMovies] = useState([]);
+    const [movie, setMovie] = useState();
 
     const fetchMovie = () => {
         localStorage.clear();
@@ -17,8 +18,8 @@ const Random = () => {
         fetch(`${api.base}discover/movie?api_key=${api.key}&page=${randomPage}`)
         .then(res => res.json())
         .then(data => {
-            setMovies(data.results[randomMovie])
-            console.log(data.results[randomMovie])
+            setMovie(data.results[randomMovie])
+            console.log(data.results[randomMovie]);
         })
         .catch(err => {
             console.log('Error Reading Movie data: ' + err);
@@ -28,21 +29,27 @@ const Random = () => {
     useEffect ( () => {
         const movieData = localStorage.getItem("randomised");
         if(movieData) {
-          setMovies(JSON.parse(movieData))
+          setMovie(JSON.parse(movieData))
         }
     },[])
 
     useEffect (() => {
-        localStorage.setItem("randomised", JSON.stringify(movies));
-    },[movies])
+        localStorage.setItem("randomised", JSON.stringify(movie));
+    },[movie])
 
     return (<>
-        <button onClick={() => navigate(-1)}>Back</button>
-        <button onClick={fetchMovie}>Roll</button>
-        <div id={movies.id} onClick={() => navigate(`/Movie/${movies.id}`)} key={movies.id}>
-            <img src={movies.poster_path && `https://image.tmdb.org/t/p/w300/${movies.poster_path}`}></img>
-            <div>{movies.original_title}</div>
+    <Style>
+        <div className="wrapper">
+            <h2>Random Movie Generator</h2>
+            <p><span style={{textDecoration: 'underline'}}>Click the Button</span> and Get a Movie Picked For You!</p>
+            <button onClick={fetchMovie}>Roll</button>
         </div>
+        
+        {movie && <div className="card" id={movie.id} onClick={() => navigate(`/Movie/${movie.id}`)} key={movie.id}>
+            <h2 className="title">{movie.title} {`(${movie.release_date?.substring(0, 4)})`}</h2>
+            <img className="image" src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'/images/placeholder.png'}></img>
+        </div>}
+    </Style>
     </>)
 
 }

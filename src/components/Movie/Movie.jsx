@@ -29,8 +29,8 @@ const Movie = () => {
         fetch(`${api.base}movie/${uuid}?api_key=${api.key}&append_to_response=videos`)
         .then(res => res.json())
         .then(data => {
-            setTrailer(data.videos.results.find(vid => vid.name == "Official Trailer"))
-            console.log(data.videos.results.find(vid => vid.name == "Official Trailer"))
+            setTrailer(data.videos.results.find(vid => vid.name === "Official Trailer"))
+            console.log(data.videos.results.find(vid => vid.name === "Official Trailer"))
         })
         .catch(err => {
             console.log('Error Reading Movie data: ' + err);
@@ -42,7 +42,7 @@ const Movie = () => {
         .then(data => {
             let stars = data.cast.slice(0, 8)
             setCredits(stars)
-            setDirector(data.crew.find(directing => directing.department == "Directing"))
+            setDirector(data.crew.find(directing => directing.department === "Directing"))
             console.log(data)
         })
         .catch(err => {
@@ -90,7 +90,7 @@ const Movie = () => {
             {trailer && <div className='trailer-wrapper'>
                 <h2>{trailer.name}</h2>
                 <div className='trailer'>
-                    <iframe src={`https://www.youtube.com/embed/${trailer.key}`}/>
+                    <iframe title={trailer.name} src={`https://www.youtube.com/embed/${trailer.key}`}/>
                 </div>
             </div> }
             

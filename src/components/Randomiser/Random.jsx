@@ -47,7 +47,7 @@ const Random = () => {
         
         {movie && <div className="card" id={movie.id} onClick={() => navigate(`/Movie/${movie.id}`)} key={movie.id}>
             <h2 className="title">{movie.title} {`(${movie.release_date?.substring(0, 4)})`}</h2>
-            <img className="image" src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'/images/placeholder.png'}></img>
+            <img className="image" src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'/images/placeholder.png'} alt='movie poster'></img>
         </div>}
     </Style>
     </>)

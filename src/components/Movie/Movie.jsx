@@ -84,7 +84,6 @@ const Movie = () => {
                         )))}</div>}
                     </div>
                 </div>
-                <button onClick={() => navigate(-1)}>Back</button>
             </div>
 
             {trailer && <div className='trailer-wrapper'>
@@ -93,8 +92,10 @@ const Movie = () => {
                     <iframe title={trailer.name} src={`https://www.youtube.com/embed/${trailer.key}`}/>
                 </div>
             </div> }
-            
-                        
+            <div className='button-wrapper'>
+                <button onClick={() => navigate(-1)}>Back</button>  
+            </div>
+                    
         </Style>
     </>)
 

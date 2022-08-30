@@ -40,8 +40,6 @@ button {
     align-items: center;
     justify-content: center;
     padding: 1rem 2rem;
-    flex-direction: column;
-    gap: 2rem;
 
     .info {
         width: 70%;
@@ -93,7 +91,7 @@ button {
 
 }
 .trailer-wrapper {
-    padding: 4rem;
+    padding: 1rem;
     .trailer {
         overflow: hidden;
         padding-top: 56.25%;
@@ -109,6 +107,13 @@ button {
         }
     
     }
+}
+
+.button-wrapper {
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+    justify-content: center;
 }
 
 //Mobile

@@ -6,7 +6,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 gap: 2rem;
-padding-top: 2rem;
+padding: 2rem;
 background-color: #d4d6d5;
 
 .underline {
@@ -37,7 +37,6 @@ background-color: #d4d6d5;
    
 }
 button {
-  padding: 0.5rem 3rem;
   background-color: #F0803C;
 }
 
@@ -52,7 +51,7 @@ button {
     padding: 1rem 1rem 0;
     h2 {
       margin: 0;
-      font-size: 0.9rem; 
+      font-size: 1rem; 
     }
   }
 }

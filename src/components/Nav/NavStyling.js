@@ -4,8 +4,8 @@ const Style = styled.section`
   nav {
     background-color: #171219;
     color: #FFFFFF;
-    padding: 1rem 0;
-    font-size: 1.5rem;
+    padding: 1.5rem 0;
+    font-size: 1.3rem;
     
     ul {
       list-style: none;
@@ -19,6 +19,9 @@ const Style = styled.section`
           text-decoration: none;
           padding: 0.5rem 1rem;
           border-radius: 1rem;
+        }
+        a:link {
+          color: #FFFFFF;
         }
         a:visited {
             color: #FFFFFF;

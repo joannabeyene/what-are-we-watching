@@ -63,10 +63,10 @@ const Movie = () => {
             <div className="movie-content" id={movie.id} key={movie.id}>
                 <div className='info'>
                     <h2 className='title'>{movie.title} {`(${movie.release_date?.substring(0, 4)})`}</h2>
-                    {movie.genres && <div className='genres'>{movie.genres.slice(0, 5).map((genre)=> (
+                    {movie.genres && <div className='genres'>{movie.genres.slice(0, 3).map((genre)=> (
                         <span className='genre' key={genre.id}>{genre.name}</span>))}
                     </div>}
-                    <p className='rating'> &#9733;{Math.round(movie.vote_average * 10) / 10}</p>
+                    <h2 className='rating'> &#9733; {Math.round(movie.vote_average * 10) / 10}</h2>
                     <p className='overview'>{movie.overview}</p>
                     
                     {director &&<div className='crew'>

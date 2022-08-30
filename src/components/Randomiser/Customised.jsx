@@ -133,7 +133,7 @@ const Customised =()=> {
                             <div className="image"><div className="wrapper"><img src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'/images/placeholder.png'} alt='movie poster'></img></div></div>
                             <div className="content">
                                 <h2>{movie.title} {`(${movie.release_date?.substring(0, 4)})`}</h2>
-                                <p>&#9733;{Math.round(movie.vote_average * 10) / 10}</p>
+                                <p>&#9733; {Math.round(movie.vote_average * 10) / 10}</p>
                             </div>
                         </div>
                     ))}
@@ -148,7 +148,7 @@ const Customised =()=> {
                             <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'url/images/placeholder.png'} alt='movie poster'></img>
                             <div className="content">
                                 <h2>{movie.title} {`(${movie.release_date?.substring(0, 4)})`}</h2>
-                                <p>&#9733;{Math.round(movie.vote_average * 10) / 10}</p>
+                                <p>&#9733; {Math.round(movie.vote_average * 10) / 10}</p>
                             </div>
                         </div>
                     ))}

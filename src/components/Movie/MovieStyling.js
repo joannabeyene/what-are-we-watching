@@ -5,7 +5,6 @@ color: #FFF;
 background-color: #310D20;
 
 button {
-    padding: 0.5rem 3rem;
     background-color: #F0803C;
 }
 
@@ -53,12 +52,10 @@ button {
             font-size: 4rem;
             line-height: 1;
         }
-
         .genres {
             & > * ~ * {
                 margin-left: 0.5rem;
             }
-
             .genre {
                 padding: 0.5rem 1.5rem;
                 border: 2px solid #FFF;
@@ -67,16 +64,15 @@ button {
                 font-weight: 600;
             }
         }
-
     }
 }
 
 .crew {
-    h2 {
-        font-size: 1rem;
-    }
-    p {
+    h2, p {
         margin: 0;
+    }
+    h2 {
+        margin-bottom: 0.5rem;
     }
 }
 .casts {
@@ -122,6 +118,10 @@ button {
         .info {
             width: 100%;
             padding-left: 0;
+
+            .title {
+                font-size: 3rem;
+            }
         }
     }
   }

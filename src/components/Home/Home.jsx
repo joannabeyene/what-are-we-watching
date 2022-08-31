@@ -1,13 +1,13 @@
 import {useState, useEffect} from "react"
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive'
-import Style from "./CustomisedStyling";
+import Style from "./HomeStyling";
 import {BiCameraMovie} from 'react-icons/bi'
 const api = {
     key: `${process.env.REACT_APP_MOVIE_KEY}`,
     base: 'https://api.themoviedb.org/3/'
 }
-const Customised =()=> {
+const Home =()=> {
     const navigate = useNavigate();
     const [genres, setGenres] = useState([]);
     const [genreId, setGenreId] = useState([]);
@@ -159,4 +159,4 @@ const Customised =()=> {
         </Style>
     </>)
 }
-export default Customised;
+export default Home;

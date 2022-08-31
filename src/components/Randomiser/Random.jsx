@@ -51,6 +51,5 @@ const Random = () => {
         </div>}
     </Style>
     </>)
-
 }
 export default Random;

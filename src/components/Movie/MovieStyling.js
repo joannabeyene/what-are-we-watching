@@ -34,7 +34,6 @@ button {
     }
 }
 
-
 .movie-content {
     display: flex;
     align-items: center;
@@ -78,6 +77,7 @@ button {
     grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
     gap: 10px;
     padding-bottom: 2rem;
+    
     .image {
         padding-top: 160px;
         background-position: center;
@@ -88,7 +88,6 @@ button {
     .name{
         font-size: 0.8rem;
     }
-
 }
 .trailer-wrapper {
     padding: 1rem;
@@ -96,7 +95,7 @@ button {
         overflow: hidden;
         padding-top: 56.25%;
         position: relative;
-    
+
         iframe {
             position: absolute;
             border: none;
@@ -105,7 +104,6 @@ button {
             width: 100%;
             height: 100%;
         }
-    
     }
 }
 
@@ -116,10 +114,8 @@ button {
     justify-content: center;
 }
 
-//Mobile
-
-  @media only screen and (max-width: 480px) {
-   .movie-content { 
+@media only screen and (max-width: 480px) {
+    .movie-content { 
         .info {
             width: 100%;
             padding-left: 0;
@@ -129,7 +125,7 @@ button {
             }
         }
     }
-  }
+}
 `;
 
 export default Style;

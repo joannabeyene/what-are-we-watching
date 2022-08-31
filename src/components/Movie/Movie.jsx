@@ -49,7 +49,6 @@ const Movie = () => {
             console.log('Error Reading Movie data: ' + err);
         });
     }
-
     useEffect ( () => {
         fetchCredits()
         fetchTrailer()
@@ -68,12 +67,10 @@ const Movie = () => {
                     </div>}
                     <h2 className='rating'> &#9733; {Math.round(movie.vote_average * 10) / 10}</h2>
                     <p className='overview'>{movie.overview}</p>
-                    
                     {director &&<div className='crew'>
                         <h2>Director</h2>
                         <p>{director.name}</p>
                     </div>}
-
                     <div className='cast'>
                         <h2>Starring</h2>
                         {credits && <div className='casts'>{credits.map((casts => (
@@ -85,7 +82,6 @@ const Movie = () => {
                     </div>
                 </div>
             </div>
-
             {trailer && <div className='trailer-wrapper'>
                 <h2>{trailer.name}</h2>
                 <div className='trailer'>
@@ -94,8 +90,7 @@ const Movie = () => {
             </div> }
             <div className='button-wrapper'>
                 <button onClick={() => navigate(-1)}>Back</button>  
-            </div>
-                    
+            </div>   
         </Style>
     </>)
 

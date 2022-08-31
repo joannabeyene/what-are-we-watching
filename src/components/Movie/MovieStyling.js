@@ -5,7 +5,6 @@ color: #FFF;
 background-color: #310D20;
 
 button {
-    padding: 0.5rem 3rem;
     background-color: #F0803C;
 }
 
@@ -35,14 +34,11 @@ button {
     }
 }
 
-
 .movie-content {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem 2rem;
-    flex-direction: column;
-    gap: 2rem;
 
     .info {
         width: 70%;
@@ -53,12 +49,10 @@ button {
             font-size: 4rem;
             line-height: 1;
         }
-
         .genres {
             & > * ~ * {
                 margin-left: 0.5rem;
             }
-
             .genre {
                 padding: 0.5rem 1.5rem;
                 border: 2px solid #FFF;
@@ -67,16 +61,15 @@ button {
                 font-weight: 600;
             }
         }
-
     }
 }
 
 .crew {
-    h2 {
-        font-size: 1rem;
-    }
-    p {
+    h2, p {
         margin: 0;
+    }
+    h2 {
+        margin-bottom: 0.5rem;
     }
 }
 .casts {
@@ -84,6 +77,7 @@ button {
     grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
     gap: 10px;
     padding-bottom: 2rem;
+    
     .image {
         padding-top: 160px;
         background-position: center;
@@ -94,15 +88,14 @@ button {
     .name{
         font-size: 0.8rem;
     }
-
 }
 .trailer-wrapper {
-    padding: 4rem;
+    padding: 1rem;
     .trailer {
         overflow: hidden;
         padding-top: 56.25%;
         position: relative;
-    
+
         iframe {
             position: absolute;
             border: none;
@@ -111,20 +104,28 @@ button {
             width: 100%;
             height: 100%;
         }
-    
     }
 }
 
-//Mobile
+.button-wrapper {
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+    justify-content: center;
+}
 
-  @media only screen and (max-width: 480px) {
-   .movie-content { 
+@media only screen and (max-width: 480px) {
+    .movie-content { 
         .info {
             width: 100%;
             padding-left: 0;
+
+            .title {
+                font-size: 3rem;
+            }
         }
     }
-  }
+}
 `;
 
 export default Style;

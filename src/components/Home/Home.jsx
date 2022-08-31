@@ -1,13 +1,13 @@
 import {useState, useEffect} from "react"
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive'
-import Style from "./CustomisedStyling";
+import Style from "./HomeStyling";
 import {BiCameraMovie} from 'react-icons/bi'
 const api = {
     key: `${process.env.REACT_APP_MOVIE_KEY}`,
     base: 'https://api.themoviedb.org/3/'
 }
-const Customised =()=> {
+const Home =()=> {
     const navigate = useNavigate();
     const [genres, setGenres] = useState([]);
     const [genreId, setGenreId] = useState([]);
@@ -130,10 +130,10 @@ const Customised =()=> {
                 {movies && <div className="movies">
                     {movies.map((movie)=> (
                         <div className="card" id={movie.id} onClick={() => navigate(`/Movie/${movie.id}`)} key={movie.id}>
-                            <div className="image"><div className="wrapper"><img src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'/images/placeholder.png'}></img></div></div>
+                            <div className="image"><div className="wrapper"><img src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'/images/placeholder.png'} alt='movie poster'></img></div></div>
                             <div className="content">
                                 <h2>{movie.title} {`(${movie.release_date?.substring(0, 4)})`}</h2>
-                                <p>&#9733;{Math.round(movie.vote_average * 10) / 10}</p>
+                                <p>&#9733; {Math.round(movie.vote_average * 10) / 10}</p>
                             </div>
                         </div>
                     ))}
@@ -145,10 +145,10 @@ const Customised =()=> {
                     <div className="carousel">
                     {movies.map((movie)=> (
                         <div className="carousel-item card" id={movie.id} onClick={() => navigate(`/Movie/${movie.id}`)} key={movie.id}>
-                            <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'url/images/placeholder.png'}></img>
+                            <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`:'url/images/placeholder.png'} alt='movie poster'></img>
                             <div className="content">
                                 <h2>{movie.title} {`(${movie.release_date?.substring(0, 4)})`}</h2>
-                                <p>&#9733;{Math.round(movie.vote_average * 10) / 10}</p>
+                                <p>&#9733; {Math.round(movie.vote_average * 10) / 10}</p>
                             </div>
                         </div>
                     ))}
@@ -159,4 +159,4 @@ const Customised =()=> {
         </Style>
     </>)
 }
-export default Customised;
+export default Home;

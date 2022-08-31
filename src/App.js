@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
-import Customised from './components/Randomiser/Customised';
+import Home from './components/Home/Home';
 import Movie from './components/Movie/Movie';
 import Nav from './components/Nav/Nav';
 import Random from './components/Randomiser/Random';
@@ -11,7 +11,7 @@ const App =()=> {
         <Router>
             <Nav/>
             <Routes>
-                <Route path="/" exact element={<Customised />} />
+                <Route path="/" exact element={<Home />} />
                 <Route path="/Random" exact element={<Random />} />
                 <Route path="/Movie/:uuid" element={<Movie />} />
             </Routes>

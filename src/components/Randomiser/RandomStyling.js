@@ -9,30 +9,30 @@ align-items: center;
 padding: 2rem;
 
 .wrapper {
+  width: 100%;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  background-color: #225560;
+  color: #FFF;
   p {
     font-weight: 600;
     font-style: italic;
+    margin: 0 1rem 2rem 1rem;
   }
 }
 h2 {
   font-size: 3rem;
   font-weight: 700;
-  margin: 0;
 }
 button {
   background-color: #310D20;
-  padding: 0.5rem 3rem;
 }
 .card  {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 2rem;
   gap: 1rem;
 
   .image {
@@ -42,14 +42,6 @@ button {
     width: 300px;
   }
 }
-
-@media only screen and (max-width: 480px) {
-  .card {
-
-  }
-}
-
-  
 `;
 
 export default Style;
